@@ -1,24 +1,15 @@
 import re
-import json
-
-
-def get_morse_spec() -> dict:
-    ret = {}
-    with open('morse_key.json', 'r', encoding='utf8') as f:
-        ret = json.load(f)
-    return ret
+from morse_decoder_encoder_constants import (
+    LANGS, RE_DASH_CHARS, RE_DOT_CHARS, MORSE_KEYS)
 
 
 def convert_to_ansi_morse(morse_str: str) -> str:
-    RE_DASH_CHARS = {'pattern': r'[−—–_]', 'by': '-'}
-    RE_DOT_CHARS = {'pattern': r'[⋅•*]', 'by': '.'}
     for r in [RE_DASH_CHARS, RE_DOT_CHARS]:
         morse_str = re.sub(r['pattern'], r['by'], morse_str)
     return morse_str
 
 
 def decode_from_morse(str_to_decode: str) -> dict:
-    LANGS = ['cyrillic', 'latin']
     ret = {'str_to_decode': str_to_decode} | {lang: '' for lang in LANGS}
     for morse_chars in str_to_decode.split(' '):
         if morse_chars == '':
@@ -26,10 +17,10 @@ def decode_from_morse(str_to_decode: str) -> dict:
                 ret[lang] += ' '
             continue
         ansi_morse_chars = convert_to_ansi_morse(morse_chars)
-        keys = [d for d in get_morse_spec() if d['morse'] ==
-                ansi_morse_chars][0]
-        if keys == {}:
+        keys = [d for d in MORSE_KEYS if d['morse'] == ansi_morse_chars]
+        if not keys:
             continue
+        keys = keys[0]
         for lang in LANGS:
             key = keys.get(lang, keys.get('common', ''))
             ret[lang] += key[0]
@@ -43,7 +34,7 @@ def encode_to_ansi_morse(str_to_encode: str) -> dict:
         if char_to_encode == ' ':
             ret['morse'] += ' '
             continue
-        for d in get_morse_spec():
+        for d in MORSE_KEYS:
             if any([char_to_encode.casefold() in v.casefold() for v in d.values()]):
                 ret['morse'] += d['morse']
                 break
