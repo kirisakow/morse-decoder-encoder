@@ -1,7 +1,7 @@
 import argparse
 import re
 import sys
-from morse_decoder_encoder_constants import (
+from mde_constants.mde_constants import (
     LANGS, RE_DASH_CHARS, RE_DOT_CHARS, MORSE_KEYS)
 
 
