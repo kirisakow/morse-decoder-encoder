@@ -9,6 +9,6 @@ RE_DOT_CHARS = {'pattern': r'[⋅•*]', 'by': '.'}
 
 MORSE_KEYS = json.load(
     open(os.path.abspath(
-        os.path.join(os.path.dirname(__file__), 'assets/morse_keys.json')
+        os.path.join(os.path.dirname(__file__), '../assets/morse_keys.json')
     ))
 )

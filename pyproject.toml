@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "morse-decoder-encoder"
+version = "0.1.0"
+description = "Morse decoder & encoder"
+authors = ["Kiril Isakov <kirix.isakov@gmail.com>"]
+license = "LICENSE"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pytest = "^8.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -2,7 +2,23 @@
 
 It is available as both a library and a self-hosted [web service](https://github.com/kirisakow/api-py).
 
-### Decode Morse
+### Installation with Poetry
+```bash
+git clone https://github.com/kirisakow/morse-decoder-encoder.git
+
+cd morse-decoder-encoder
+
+poetry install
+```
+```bash
+cd your-project
+
+poetry install --editable ../rel/path/to/morse-decoder-encoder/
+```
+
+### Usage examples:
+
+#### Decode Morse
 ```py
 from morse_decoder_encoder import decode_from_morse
 from pprint import pprint
@@ -25,7 +41,7 @@ Result:
   'latin': 'SKAZANNOE ISÖEZAET, NAPISANNOE OSTAETSÄ'
 }
 ```
-### Encode to Morse
+#### Encode to Morse
 ```py
 from morse_decoder_encoder import encode_to_ansi_morse, convert_to_ansi_morse
 from pprint import pprint

@@ -1,5 +1,5 @@
 import pytest
-from .morse_decoder_encoder import (
+from morse_decoder_encoder.morse_decoder_encoder import (
     convert_to_ansi_morse,
     decode_from_morse,
     encode_to_ansi_morse,
