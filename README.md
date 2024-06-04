@@ -10,17 +10,28 @@ cd morse-decoder-encoder
 
 poetry install
 ```
+
+### Use `morse-decoder-encoder` as a CLI executable
+```bash
+python morse_decoder_encoder.py --decode "one (single, between quotes) Morse string to decode"
+
+python morse_decoder_encoder.py --encode "one (single, between quotes) string to encode as Morse"
+```
+
+### Use `morse-decoder-encoder` as an importable library in Python code
+
+Add `morse-decoder-encoder` as a dependency so you can import it:
 ```bash
 cd your-project
 
-poetry install --editable ../rel/path/to/morse-decoder-encoder/
-```
+poetry add --editable ../rel/path/to/morse-decoder-encoder/
 
-### Usage examples:
+poetry install
+```
 
 #### Decode Morse
 ```py
-from morse_decoder_encoder import decode_from_morse
+from morse_decoder_encoder.morse_decoder_encoder import decode_from_morse
 from pprint import pprint
 
 test_data = {
@@ -43,7 +54,9 @@ Result:
 ```
 #### Encode to Morse
 ```py
-from morse_decoder_encoder import encode_to_ansi_morse, convert_to_ansi_morse
+from morse_decoder_encoder.morse_decoder_encoder import (
+    encode_to_ansi_morse, convert_to_ansi_morse
+)
 from pprint import pprint
 
 test_data = {
@@ -66,5 +79,4 @@ Result:
 
 ### Sources
 
-* Morse code map for latin and cyrillic characters:
-  * https://en.wikipedia.org/wiki/Russian_Morse_code
+* [Morse code map for latin and cyrillic characters](https://en.wikipedia.org/wiki/Russian_Morse_code)

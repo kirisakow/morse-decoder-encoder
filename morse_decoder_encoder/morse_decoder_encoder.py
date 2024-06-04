@@ -1,4 +1,6 @@
+import argparse
 import re
+import sys
 from morse_decoder_encoder_constants import (
     LANGS, RE_DASH_CHARS, RE_DOT_CHARS, MORSE_KEYS)
 
@@ -41,3 +43,35 @@ def encode_to_ansi_morse(str_to_encode: str) -> dict:
         if i < len(chars_to_encode) - 1:
             ret['morse'] += ' '
     return ret
+
+
+def read_from_stdin_and_print_to_stdout():
+    MORSE_ACTIONS = {'decode': decode_from_morse, 'encode': encode_to_ansi_morse}
+    DESCRIPTION = "Morse decoder & encoder."
+    USAGE = f"""{DESCRIPTION}
+
+python morse_decoder_encoder.py --decode "one (single, between quotes) Morse string to decode"
+
+python morse_decoder_encoder.py --encode "one (single, between quotes) string to encode as Morse"
+
+Run with -h (--help) option to print a complete help notice.
+"""
+    EPILOG = "See https://github.com/kirisakow/morse_decoder_encoder"
+    parser = argparse.ArgumentParser(prog='morse_decoder_encoder.py', usage=USAGE, description=DESCRIPTION, epilog=EPILOG)
+    parser.add_argument('--decode', help="decode Morse code", default=None, nargs=1, type=str)
+    parser.add_argument('--encode', help="encode as Morse code", default=None, nargs=1, type=str)
+    args = parser.parse_args()
+    if not sys.argv[1:] or (args.decode is None and args.encode is None):
+        sys.exit(USAGE)
+    requested_action = sys.argv[1].lstrip('--')
+    payload = args.__dict__.get(requested_action, '')
+    if payload == '':
+        sys.exit(USAGE)
+    if isinstance(payload, list):
+        payload = ' '.join(payload)
+    result = MORSE_ACTIONS[requested_action](payload)
+    print(f'{result!r}')
+
+
+if __name__ == '__main__':
+    read_from_stdin_and_print_to_stdout()
